@@ -31,7 +31,7 @@ export interface User extends Document{
     messages: Message[]
 }
 
-const userSchema: mongoose.Schema<User> = new mongoose.Schema({
+const userSchema: Schema<User> = new Schema({
     username: {
         type: String,
         required: [true, "Username is required"],
