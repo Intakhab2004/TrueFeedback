@@ -1,7 +1,7 @@
 import mongoose, {Document, Schema} from "mongoose";
 
 
-export interface Message extends Document{
+export interface Message{
     content: string,
     createdAt: Date
 }
@@ -20,7 +20,7 @@ const messageSchema: Schema<Message> = new Schema({
 })
 
 
-export interface User extends Document{
+export interface User{
     username: string,
     email: string,
     password: string,
