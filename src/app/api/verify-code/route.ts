@@ -5,7 +5,7 @@ import {verifySchema} from "@/schemas/verifySchema";
 import { NextRequest, NextResponse } from "next/server";
 
 
-export async function GET(request: NextRequest){
+export async function POST(request: NextRequest){
     await dbConnect();
 
     try{
@@ -13,8 +13,8 @@ export async function GET(request: NextRequest){
         const {username, code} = reqBody;
 
         // otpCode validation
-        const result = verifySchema.safeParse(code);
-        console.log(result);
+        const result = verifySchema.safeParse({otpCode: code});
+        console.log("Schema verification: ", result);
         
         if(!result.success){
             return NextResponse.json({
