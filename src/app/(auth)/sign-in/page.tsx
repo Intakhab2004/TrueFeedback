@@ -78,7 +78,7 @@ const signInPage = () => {
 
         {/* Sign in form */}
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               name="identifier"
               control={form.control}
