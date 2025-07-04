@@ -6,8 +6,6 @@ import { User } from "next-auth";
 import userModel from "@/model/User";
 
 
-
-
 export async function DELETE(request: NextRequest, {params}: {params: {messageId: string}}){
     const messageId = params.messageId;
     
