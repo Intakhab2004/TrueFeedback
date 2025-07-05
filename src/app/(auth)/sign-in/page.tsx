@@ -1,6 +1,12 @@
 "use client"
 
 
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/ui/alert"
+
 import { useRouter } from "next/navigation";
 import { signInSchema } from "@/schemas/signInSchema";
 import { useState } from "react";
@@ -12,12 +18,13 @@ import { signIn } from "next-auth/react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { AlertCircleIcon, Loader2 } from "lucide-react";
 import Link from "next/link";
 
 const signInPage = () => {
 
   const [loader, setLoader] = useState(false);
+  const [alertBox, setAlertBox] = useState(false);
   const router = useRouter();
 
   // zod validation
@@ -32,6 +39,22 @@ const signInPage = () => {
   const onSubmit = async(data: z.infer<typeof signInSchema>) => {
     setLoader(true);
     try{
+        if(!data.identifier || !data.password){
+          const toastId = toast(
+            "Please fill all the details carefully",
+            {
+              description: "All fields are mandatory",
+              action: {
+                label: "Dismiss",
+                onClick: () => {
+                  toast.dismiss(toastId);
+                }
+              }
+            }
+          )
+          return;
+        }
+
         const result = await signIn("credentials", {
         redirect: false,
         identifier: data.identifier,
@@ -41,18 +64,24 @@ const signInPage = () => {
       console.log("SignIn result: ", result);
 
       if(result?.error){
-        const toastId = toast(
-          "Something went wrong",
-          {
-            description: result.error,
-            action: {
-              label: "Dismiss",
-              onClick: () => {
-                toast.dismiss(toastId);
+        if(result.error === "Please verify your email before login"){
+          setAlertBox(true);
+        }
+
+        else{
+          const toastId = toast(
+            "Something went wrong",
+            {
+              description: result.error,
+              action: {
+                label: "Dismiss",
+                onClick: () => {
+                  toast.dismiss(toastId);
+                }
               }
             }
-          }
-        )
+          )
+        }
       }
 
       if(result?.url){
@@ -65,7 +94,26 @@ const signInPage = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 relative">
+        {
+          alertBox && (
+            <div className="fixed inset-0 bg-black/40 backdrop-blur z-20 flex items-center justify-center">
+              <Alert variant="destructive" className="absolute z-50 top-70 w-full max-w-md">
+                <AlertCircleIcon />
+                <AlertTitle>Please verify your email before login</AlertTitle>
+                <AlertDescription>
+                  You need to Sign up again to get the verification code.
+                  <Button 
+                    className="mt-2 bg-white text-black border-1 cursor-pointer border-red-500 hover:bg-white"
+                    onClick={() => {setAlertBox(false)}}
+                  >
+                    Dismiss
+                  </Button>
+                </AlertDescription>
+              </Alert>
+            </div>
+          )
+        }
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-4x font-extrabold tracking-tight lg:text-5xl mb-6">
@@ -117,7 +165,7 @@ const signInPage = () => {
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin"/> Please wait
                   </>
-                         ) : ("Signup")
+                         ) : ("Login")
               }
             </Button>
           </form>

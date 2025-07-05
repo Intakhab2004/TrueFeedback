@@ -45,7 +45,6 @@ const signUp = () => {
 
                 try{
                     const result = await axios.get(`/api/username-unique?username=${username}`);
-                    console.log("usernameUniqueResult ", result)   // TODO: Remove it
                     setUsernameMessage(result.data.message);
                 }
                 catch(error){
@@ -63,9 +62,8 @@ const signUp = () => {
     }, [username])
 
     const onSubmit = async(data: z.infer<typeof signUpSchema>) => {
-        setLoader(true);
-        
         try{
+            setLoader(true);
             console.log(data);
             const result = await axios.post("/api/signup", data);
 
@@ -163,9 +161,13 @@ const signUp = () => {
                                         {
                                             usernameUniqueLoader && <Loader2 className="animate-spin"/>
                                         }
-                                        <p className={`text-sm ${usernameMessage === "Username is available" ? "text-green-500" : "text-red-500"}`}>
-                                            {usernameMessage}
-                                        </p>
+                                        {
+                                            username && (
+                                                <p className={`text-sm ${usernameMessage === "Username is available" ? "text-green-500" : "text-red-500"}`}>
+                                                    {usernameMessage}
+                                                </p>
+                                            )
+                                        }
 
                                     <FormMessage />
                                 </FormItem>

@@ -23,7 +23,7 @@ export async function POST(request: NextRequest){
     const {acceptMessages} = await request.json();
 
     try{
-        const updatedUser = userModel.findByIdAndUpdate(
+        const updatedUser = await userModel.findByIdAndUpdate(
             userId,
             {isAcceptingMessage: acceptMessages},
             {new: true}
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest){
             return NextResponse.json({
                 success: false,
                 status: 402,
-                message: "Something went wrong while updating status of accepting messages"
+                message: "Failed to update status of accepting messages"
             })
         }
 

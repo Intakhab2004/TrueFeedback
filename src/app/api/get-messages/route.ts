@@ -6,7 +6,6 @@ import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 
 
-
 export async function GET(request: NextRequest){
     await dbConnect();
 
@@ -27,7 +26,7 @@ export async function GET(request: NextRequest){
         const user = await userModel.aggregate([
             {$match: {_id: userId}},
             {$unwind: "$messages"},
-            {$sort: {"$messages.createdAt": -1}},
+            {$sort: {"messages.createdAt": -1}},
             {$group: {_id: "$_id", messages: {$push: "$messages"}}}
         ])
 
