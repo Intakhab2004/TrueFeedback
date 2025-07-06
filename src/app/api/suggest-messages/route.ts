@@ -61,7 +61,7 @@ export async function GET(request: NextRequest){
         return NextResponse.json({
             success: true,
             status: 200,
-            suggestMessage: shuffledMessage
+            shuffledMessage
         })
     }
     catch(error: unknown){

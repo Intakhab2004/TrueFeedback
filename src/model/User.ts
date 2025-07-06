@@ -20,7 +20,7 @@ const messageSchema: Schema<Message> = new Schema({
 })
 
 
-export interface User{
+export interface User extends Document{
     username: string,
     email: string,
     password: string,
@@ -28,7 +28,7 @@ export interface User{
     otpExpiry: Date,
     isVerified: boolean,
     isAcceptingMessage: boolean,
-    messages: Message[]
+    messages: mongoose.Types.DocumentArray<Message>
 }
 
 const userSchema: Schema<User> = new Schema({

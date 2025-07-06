@@ -22,12 +22,12 @@ const DashboardPage = () => {
     const [loader, setLoader] = useState(false);
     const [switchLoader, setSwitchLoader] = useState(false);
     const router = useRouter();
-    const {data: session} = useSession();
+    const {data: session, status} = useSession();
 
     const handleDeleteMessage = (messageId: string) => {
-        setMessages(messages.filter((message) => {
+        setMessages(messages.filter((message) => 
             message._id !== messageId
-        }))
+        ))
     }
 
     const form = useForm<z.infer<typeof acceptMessage>>({
@@ -114,7 +114,7 @@ const DashboardPage = () => {
         fetchMessages();
         fetchAcceptMessage();
 
-    }, [session, setValue, fetchMessages, fetchAcceptMessage]);
+    }, [session, fetchMessages, fetchAcceptMessage]);
 
     const handleSwitchChange = async() => {
         try{
@@ -151,103 +151,124 @@ const DashboardPage = () => {
         }
     }
 
-    if(!session || !session.user){
+    if(status === "loading"){
         return (
-            <div>Please Login to be a part of Anonymous Gossips</div>
+            <div className="flex flex-col items-center justify-center mt-15">
+                <Loader2 className="w-7 h-7 animate-spin" />
+                <p className="text-3xl font-bold">Please wait</p>
+            </div>
         )
     }
 
-    const {username} = session.user;
-    const baseUrl  = `${window.location.protocol}//${window.location.host}`;
-    const profileUrl = `${baseUrl}/u/${username}`;
+    if(status === "unauthenticated"){
+        return (
+            <div className="text-center relative top-50">
+                Please Login to be a part of Anonymous Gossips
+            </div>
+        )
+    }
 
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(profileUrl);
-        const toastId = toast(
-            "URL Copied",
-            {
-                description: " Profile URL has been copied to clipboard",
-                action: {
-                    label: "Dismiss",
-                    onClick: () => {
-                        toast.dismiss(toastId);
+    if(status === "authenticated"){
+        const {username} = session?.user;
+        const baseUrl  = `${window.location.protocol}//${window.location.host}`;
+        const profileUrl = `${baseUrl}/u/${username}`;
+
+        const copyToClipboard = () => {
+            navigator.clipboard.writeText(profileUrl);
+            const toastId = toast(
+                "URL Copied",
+                {
+                    description: "Profile URL has been copied to clipboard",
+                    action: {
+                        label: "Dismiss",
+                        onClick: () => {
+                            toast.dismiss(toastId);
+                        }
                     }
                 }
-            }
-        )
-    }
+            )
+        }
 
-    return (
-        <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
-            <h1 className="text-4xl font-bold mb-4">
-                User Dashboard
-            </h1>
+        return (
+            <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
+                <h1 className="text-4xl font-bold mb-4">
+                    User Dashboard
+                </h1>
 
-            <div className="mb-4">
-                <h2 className="text-lg font-semibold mb-2">
-                    Copy Your Unique Link
-                </h2>{" "}
-                <div className="flex items-center">
-                    <input
-                        type="text"
-                        value={profileUrl}
-                        disabled
-                        className="input input-bordered w-full p-2 mr-2"
+                <div className="mb-4">
+                    <h2 className="text-lg font-semibold mb-2">
+                        Copy Your Unique Link
+                    </h2>{" "}
+                    <div className="flex items-center">
+                        <input
+                            type="text"
+                            value={profileUrl}
+                            disabled
+                            className="input input-bordered w-full p-2 mr-2 border-1 border-black/60 rounded-lg"
+                        />
+                        <Button onClick={copyToClipboard}>
+                            Copy
+                        </Button>
+                    </div>
+                </div>
+
+                <div className="mb-4">
+                    <Switch
+                        {...register("acceptingMessage")}
+                        checked={acceptingMessage}
+                        onCheckedChange={handleSwitchChange}
+                        disabled={switchLoader}
                     />
-                    <Button onClick={copyToClipboard}>
-                        Copy
-                    </Button>
+                    <span className="ml-2">
+                        Accept Messages: {acceptingMessage ? "On" : "Off"}
+                    </span>
+                </div>
+
+                <Separator/>
+
+                <Button 
+                    className="mt-4" 
+                    variant="outline"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        fetchMessages(true);
+                    }}  
+                >
+                    {
+                        loader ? (<Loader2 className="h-4 w-4 animate-spin" />)
+                                :
+                                (<RefreshCcw className="h-4 w-4" />)
+                    }
+                </Button>
+
+                <div className="mt-4 grid grid-cols-2 md:grid-cols-2 gap-6">
+                    {
+                        loader ? 
+                            (
+                                <p>Please wait while your message is loading</p>
+                            )
+                            :
+                            (
+                                messages.length > 0 ? 
+                                            (
+                                                messages.map((message, index) => {
+                                                    return (
+                                                        <MessageCard
+                                                            key={index}
+                                                            message={message}
+                                                            onMessageDelete={handleDeleteMessage}
+                                                        />
+                                                    )
+                                                })
+                                            ) 
+                                            :
+                                            (<p>No Messages to display</p>)
+                            )
+                    }
                 </div>
             </div>
-
-            <div className="mb-4">
-                <Switch
-                    {...register("acceptingMessage")}
-                    checked={acceptingMessage}
-                    onCheckedChange={handleSwitchChange}
-                    disabled={switchLoader}
-                />
-                <span className="ml-2">
-                    Accept Messages: {acceptingMessage ? "On" : "Off"}
-                </span>
-            </div>
-
-            <Separator/>
-
-            <Button 
-                className="mt-4" 
-                variant="outline"
-                onClick={(e) => {
-                    e.preventDefault();
-                    fetchMessages(true);
-                }}  
-            >
-                {
-                    loader ? (<Loader2 className="h-4 w-4 animate-spin" />)
-                             :
-                             (<RefreshCcw className="h-4 w-4" />)
-                }
-            </Button>
-
-            <div className="mt-4 grid grid-cols-2 md:grid-cols-2 gap-6">
-                {
-                    messages.length > 0 ? 
-                                        (
-                                            messages.map((message) => {
-                                                return (
-                                                    <MessageCard
-                                                        message={message}
-                                                        onMessageDelete={handleDeleteMessage}
-                                                    />
-                                                )
-                                            })
-                                        ) 
-                                        :
-                                        (<p>No Messages to display</p>)
-                }
-            </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default DashboardPage;

@@ -64,7 +64,6 @@ const signUp = () => {
     const onSubmit = async(data: z.infer<typeof signUpSchema>) => {
         try{
             setLoader(true);
-            console.log(data);
             const result = await axios.post("/api/signup", data);
 
             if(!result.data.success){
