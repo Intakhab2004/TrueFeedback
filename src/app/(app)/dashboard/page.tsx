@@ -3,7 +3,6 @@
 import { Message } from "@/model/User";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner"
-import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,7 +20,6 @@ const DashboardPage = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [loader, setLoader] = useState(false);
     const [switchLoader, setSwitchLoader] = useState(false);
-    const router = useRouter();
     const {data: session, status} = useSession();
 
     const handleDeleteMessage = (messageId: string) => {

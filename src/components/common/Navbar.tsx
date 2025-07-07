@@ -21,7 +21,7 @@ const Navbar = () => {
                     session ? (
                                 <>
                                     <span className="mr-4">Welcome, {user?.username}</span>
-                                    <Button onSubmit={() => signOut()} className="w-full md:w-auto">
+                                    <Button onClick={() => signOut()} className="w-full md:w-auto">
                                         Logout
                                     </Button>
                                 </>
