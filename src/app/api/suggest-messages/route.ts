@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 
 const messageSuggestion = [
@@ -54,7 +54,7 @@ const messageSuggestion = [
     { id: 50, text: "What’s your favorite childhood game?" }
 ]
 
-export async function GET(request: NextRequest){
+export async function GET(){
     try{
         const shuffledMessage = messageSuggestion.sort(() => 0.5 - Math.random()).slice(0, 3);
 

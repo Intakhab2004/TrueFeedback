@@ -16,17 +16,12 @@ export const authOptions: NextAuthOptions = {
                 password: { label: "Password", type: "password" }
             },
 
-
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             async authorize(credentials: any): Promise<any>{
                 await dbConnect();
 
                 try{
-                    const user = await userModel.findOne({
-                        $or: [
-                            {email: credentials.identifier},
-                            {username: credentials.identifier}
-                        ]
-                    })
+                    const user = await userModel.findOne({email: credentials.email});
 
                     if(!user) throw new Error("User don't exists with this email");
                     if(!user.isVerified) throw new Error("Please verify your email before login");

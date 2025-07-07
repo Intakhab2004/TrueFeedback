@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { AlertCircleIcon, Loader2 } from "lucide-react";
 import Link from "next/link";
 
-const signInPage = () => {
+const SignInPage = () => {
 
   const [loader, setLoader] = useState(false);
   const [alertBox, setAlertBox] = useState(false);
@@ -184,5 +184,5 @@ const signInPage = () => {
   )
 }
 
-export default signInPage;
+export default SignInPage;
 
