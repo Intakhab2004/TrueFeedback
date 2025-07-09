@@ -40,9 +40,7 @@ import nodemailer from "nodemailer"
 export const sendEmail = async(email: string, username: string, otp: string): Promise<apiResponse> => {
     try{
         const transporter = nodemailer.createTransport({
-            host: process.env.HOST,
-            port: 465,
-            secure: true,
+            service: "gmail",
             auth: {
                 user: process.env.MAIL_USER,
                 pass: process.env.MAIL_PASS,
@@ -80,7 +78,7 @@ export const sendEmail = async(email: string, username: string, otp: string): Pr
                         </div>
 
                         <div style="margin-top: 20px;">
-                            <a href="http://localhost:3000/verify/${username}"
+                            <a href="https://true-feedback-livid.vercel.app/verify/${username}"
                                 style="display: inline-block; padding: 10px 20px; background-color: #61dafb; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px;">
                                 Verify here
                             </a>
