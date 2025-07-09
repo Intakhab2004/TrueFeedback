@@ -12,20 +12,31 @@ export async function POST(request: NextRequest){
         const reqBody = await request.json();
         const {email, username, password} = reqBody;
 
-        const existingVerifiedUser = await userModel.findOne({username, isVerified: true});
-        if(existingVerifiedUser){
-            console.log("User already exists");
-            return NextResponse.json({
-                success: false,
-                status: 400,
-                message: "User already exists"
-            })
+        // 6-Digits otp generation
+        const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+        const existingUserByUsername = await userModel.findOne({username});
+        if(existingUserByUsername){
+            if(existingUserByUsername.isVerified){
+                console.log("User already exists");
+                return NextResponse.json({
+                    success: false,
+                    status: 400,
+                    message: "User already exists"
+                })
+            }
+            else{
+                const hashedPassword = await bcryptjs.hash(password, 10);
+                existingUserByUsername.email = email;
+                existingUserByUsername.password = hashedPassword;
+                existingUserByUsername.otpCode = otpCode;
+                existingUserByUsername.otpExpiry = new Date(Date.now() + 60*60*1000);
+
+                await existingUserByUsername.save()
+            }
         }
 
         const existingUserByEmail = await userModel.findOne({email});
-
-        // 6-Digits otp generation
-        const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
 
         if(existingUserByEmail){
             if(existingUserByEmail.isVerified){
@@ -37,6 +48,7 @@ export async function POST(request: NextRequest){
             }
             else{
                 const hashedPassword = await bcryptjs.hash(password, 10);
+                existingUserByEmail.username = username;
                 existingUserByEmail.password = hashedPassword;
                 existingUserByEmail.otpCode = otpCode;
                 existingUserByEmail.otpExpiry = new Date(Date.now() + 60*60*1000);
@@ -44,6 +56,7 @@ export async function POST(request: NextRequest){
                 await existingUserByEmail.save()
             }
         }
+
         else{
             const hashedPassword = await bcryptjs.hash(password, 10);
 

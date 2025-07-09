@@ -3,6 +3,7 @@ import  CredentialsProvider  from "next-auth/providers/credentials";
 import bcryptjs from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import userModel from "@/model/User";
+import { email } from "zod/v4/core/regexes";
 
 
 export const authOptions: NextAuthOptions = {
@@ -12,7 +13,7 @@ export const authOptions: NextAuthOptions = {
             name: "Credentials",
 
             credentials: {
-                email: { label: "Email", type: "text", placeholder: "abc@gmail.com" },
+                identifier: { label: "Email", type: "text", placeholder: "abc@gmail.com" },
                 password: { label: "Password", type: "password" }
             },
 
@@ -21,7 +22,12 @@ export const authOptions: NextAuthOptions = {
                 await dbConnect();
 
                 try{
-                    const user = await userModel.findOne({email: credentials.email});
+                    const user = await userModel.findOne({
+                        $or: [
+                            {email: credentials.identifier},
+                            {username: credentials.identifier}
+                        ]
+                    });
 
                     if(!user) throw new Error("User don't exists with this email");
                     if(!user.isVerified) throw new Error("Please verify your email before login");

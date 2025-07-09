@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
 
 type randomMessage = {
   id: number;
@@ -28,10 +29,9 @@ type randomMessage = {
 const MessagePage = () => {
   const [loader, setLoader] = useState(false);
   const [messageLoader, setMessageLoader] = useState(false);
-  const [messageSuggestion, setMessageSuggestion] = useState<randomMessage[]>(
-    []
-  );
+  const [messageSuggestion, setMessageSuggestion] = useState<randomMessage[]>([]);
   const params = useParams();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof messageSchema>>({
     resolver: zodResolver(messageSchema),
@@ -135,6 +135,12 @@ const MessagePage = () => {
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-white">
+      <nav className="w-full p-4 md:p-6 shadow-md mb-4 flex justify-around items-center">
+        <p className="font-semibold">Be a part of Anonymous Gossips</p>
+        <Button onClick={() => router.replace("/sign-up")}>
+          Sign up
+        </Button>
+      </nav>
       <div className="w-full max-w-lg p-8 bg-white">
         <h1 className="text-4x font-extrabold tracking-tight lg:text-5xl mb-3 text-center">
           Public Profile Link
@@ -201,7 +207,7 @@ const MessagePage = () => {
           ))}
         </div>
 
-        <Button onClick={handleSuggestMessage} className="mt-4">
+        <Button onClick={handleSuggestMessage} className="mt-4 mb-10">
           {messageLoader ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
