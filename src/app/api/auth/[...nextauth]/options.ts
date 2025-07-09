@@ -3,7 +3,6 @@ import  CredentialsProvider  from "next-auth/providers/credentials";
 import bcryptjs from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import userModel from "@/model/User";
-import { email } from "zod/v4/core/regexes";
 
 
 export const authOptions: NextAuthOptions = {
