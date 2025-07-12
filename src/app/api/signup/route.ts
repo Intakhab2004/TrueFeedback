@@ -77,7 +77,7 @@ export async function POST(request: NextRequest){
         }
 
         // sending verification email
-        const emailResponse = await sendEmail(email, username, otpCode);
+        const emailResponse = await sendEmail({email: email, emailType: "VERIFYOTP", username: username, otp: otpCode});
         if(!emailResponse.success){
             return NextResponse.json({
                 success: false,

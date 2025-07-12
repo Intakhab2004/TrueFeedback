@@ -8,7 +8,7 @@ export async function POST(request: NextRequest){
 
     try{
         const reqBody = await request.json();
-        const {username, content} = reqBody;
+        const {username, content, email} = reqBody;
 
         const user = await userModel.findOne({username});
         if(!user){
@@ -30,7 +30,8 @@ export async function POST(request: NextRequest){
 
         const newMessage = {
             content,
-            createdAt: new Date()
+            createdAt: new Date(),
+            replyEmail: email || undefined
         }
 
         user.messages.push(newMessage);

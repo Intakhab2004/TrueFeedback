@@ -3,6 +3,9 @@ import mongoose, {Document, Schema} from "mongoose";
 
 export interface Message extends Document{
     content: string,
+    replyEmail: string,
+    replyMessage: string,
+    replied: boolean,
     createdAt: Date
 }
 
@@ -10,6 +13,20 @@ const messageSchema: Schema<Message> = new Schema({
     content: {
         type: String,
         required: true,
+    },
+
+    replyEmail: {
+        type: String,
+        match: [/.+\@.+\..+/, "Please enter a valid email"]
+    },
+
+    replyMessage: {
+        type: String,
+    },
+
+    replied: {
+        type: Boolean,
+        default: false
     },
 
     createdAt: {

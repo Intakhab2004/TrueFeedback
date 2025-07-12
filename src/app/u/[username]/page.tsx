@@ -6,6 +6,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
@@ -20,6 +21,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
 
 type randomMessage = {
   id: number;
@@ -35,6 +37,10 @@ const MessagePage = () => {
 
   const form = useForm<z.infer<typeof messageSchema>>({
     resolver: zodResolver(messageSchema),
+    defaultValues: {
+      message: "",
+      email: ""
+    }
   });
 
   const sendMessageHandler = async (data: z.infer<typeof messageSchema>) => {
@@ -44,6 +50,7 @@ const MessagePage = () => {
       const result = await axios.post("/api/send-message", {
         username: params.username,
         content: data.message,
+        email: data.email
       });
 
       if (!result.data.success) {
@@ -164,6 +171,24 @@ const MessagePage = () => {
                   <FormControl>
                     <Textarea
                       placeholder="Write your Message here"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Enter your email if you want reply of this message. It is optional</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="w-80"
+                      placeholder="Enter your email"
                       {...field}
                     />
                   </FormControl>
