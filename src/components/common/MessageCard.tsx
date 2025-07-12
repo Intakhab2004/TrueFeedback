@@ -32,7 +32,6 @@ import {
 } from "@/components/ui/dialog";
 
 import { Button } from "../ui/button";
-import { Input } from "@/components/ui/input";
 import { Loader2, X } from "lucide-react";
 import { Message } from "@/model/User";
 import { toast } from "sonner";
