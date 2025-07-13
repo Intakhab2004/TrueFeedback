@@ -14,7 +14,7 @@ import Autoplay from "embla-carousel-autoplay";
 
 const Homepage = () => {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <main className="flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-12">
         <section className="text-center mb-8 md:mb-12">
           <h1 className="text-3xl md:text-5xl font-bold">
@@ -54,7 +54,7 @@ const Homepage = () => {
         <p className="font-semibold">True Feedback - Say What You Really Feel, Anonymously</p>
         <p className="text-[0.8rem] text-black/30">© 2025 True Feedback. All rights reserved</p>
       </footer>
-    </>
+    </div>
   );
 };
 
