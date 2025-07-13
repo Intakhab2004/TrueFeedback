@@ -1,4 +1,6 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+"use client"
+
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -8,6 +10,7 @@ import {
 } from "@/components/ui/carousel";
 
 import messages from "@/messages.json";
+import Autoplay from "embla-carousel-autoplay";
 
 const Homepage = () => {
   return (
@@ -22,17 +25,20 @@ const Homepage = () => {
           </p>
         </section>
 
-        <Carousel className="w-full max-w-xs">
+        <Carousel className="w-full max-w-xs" plugins={[Autoplay({delay: 2000})]}>
           <CarouselContent>
             {messages.map((message, index) => (
               <CarouselItem key={index}>
                 <div className="p-1">
-                  <Card>
-                    <CardHeader>{message.title}</CardHeader>
-                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                      <span className="text-lg font-semibold">
+                  <Card className="h-80">
+                    <CardHeader className="text-black/60">{message.title}</CardHeader>
+                    <CardContent className="flex flex-col aspect-square items-center p-6 -mt-10">
+                      <p className="text-lg font-semibold">
                         {message.content}
-                      </span>
+                      </p>
+                      <p className="text-black/40 text-[0.9rem] mr-42 mt-4">
+                        {message.received}
+                      </p>
                     </CardContent>
                   </Card>
                 </div>
@@ -44,8 +50,9 @@ const Homepage = () => {
         </Carousel>
       </main>
 
-      <footer className="text-center p-4 md:p-6">
-        © 2025 True Feedback. All rights reserved
+      <footer className="text-center p-4 md:p-6 border-t-1 border-black/20">
+        <p className="font-semibold">True Feedback - Say What You Really Feel, Anonymously</p>
+        <p className="text-[0.8rem] text-black/30">© 2025 True Feedback. All rights reserved</p>
       </footer>
     </>
   );

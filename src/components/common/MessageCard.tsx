@@ -180,7 +180,7 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
             </AlertDialogContent>
           </AlertDialog>
         </div>
-        <CardDescription className="-mt-4">{date}</CardDescription>
+        <CardDescription className="-mt-1">{date}</CardDescription>
       </CardHeader>
       <CardFooter>
         <div>

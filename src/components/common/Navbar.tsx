@@ -8,7 +8,6 @@ import { Button } from "../ui/button";
 
 const Navbar = () => {
     const {data: session} = useSession();
-
     const user: User = session?.user as User;
 
     return (
@@ -21,7 +20,7 @@ const Navbar = () => {
                     session ? (
                                 <>
                                     <span className="mr-4">Welcome, {user?.username}</span>
-                                    <Button onClick={() => signOut()} className="w-full md:w-auto">
+                                    <Button onClick={() => signOut({callbackUrl: "/"})} className="w-full md:w-auto">
                                         Logout
                                     </Button>
                                 </>

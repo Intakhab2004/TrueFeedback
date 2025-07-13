@@ -188,6 +188,7 @@ const DashboardPage = () => {
         }
 
         return (
+            <>
             <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
                 <h1 className="text-4xl font-bold mb-4">
                     User Dashboard
@@ -264,7 +265,13 @@ const DashboardPage = () => {
                             )
                     }
                 </div>
+                
             </div>
+            <footer className="text-center p-4 md:p-6 border-t-1 border-black/20">
+                <p className="font-semibold">True Feedback - Say What You Really Feel, Anonymously</p>
+                <p className="text-[0.8rem] text-black/30">© 2025 True Feedback. All rights reserved</p>
+            </footer>
+            </>
         )
     }
 }

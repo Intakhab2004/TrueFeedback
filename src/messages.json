@@ -1,17 +1,32 @@
 [
   {
-    "title": "Message from User123",
-    "content": "Hey, how are you doing today?",
-    "received": "10 minutes ago"
+    "title": "Message from MoonWalker7",
+    "content": "Just saw the sunset and thought of you. Hope your day is as beautiful!",
+    "received": "2 minutes ago"
   },
   {
-    "title": "Message from SecretAdmirer",
-    "content": "I really liked your recent post!",
-    "received": "2 hours ago"
+    "title": "Message from DreamChaser",
+    "content": "Quick reminder: You’re doing amazing. Keep shining!",
+    "received": "5 minutes ago"
   },
   {
-    "title": "Message from MysteryGuest",
-    "content": "Do you have any book recommendations?",
-    "received": "1 day ago"
+    "title": "Message from CoderNinja",
+    "content": "Hey! Got a cool project idea. Let's build something epic together!",
+    "received": "12 minutes ago"
+  },
+  {
+    "title": "Message from StarrySoul",
+    "content": "What if we just pack our bags and chase the stars tonight?",
+    "received": "8 minutes ago"
+  },
+  {
+    "title": "Message from SereneMind",
+    "content": "Take a deep breath. Let the chaos pass. You’ve got this!",
+    "received": "3 minutes ago"
+  },
+  {
+    "title": "Message from MysticShade",
+    "content": "Sometimes, silence speaks louder than words. Just checking in on you ❤️",
+    "received": "1 minute ago"
   }
 ]
