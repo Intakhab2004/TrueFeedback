@@ -16,7 +16,7 @@ const Homepage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-12">
-        <section className="text-center mb-8 md:mb-12">
+        <section className="text-center mb-8 md:mb-8">
           <h1 className="text-3xl md:text-5xl font-bold">
             Dive into the World of Anonymous Conversation
           </h1>

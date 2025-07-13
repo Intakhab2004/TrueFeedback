@@ -242,9 +242,9 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
                                ) 
                                :
                                (
-                                  <div className="p-2 border-1 border-black/20 rounded-sm w-2xs">
-                                    <p className="text-black/40 text-[0.7rem]">You replied to this message</p>
-                                    <p className="text-[0.9rem] font-semibold">{message.replyMessage}</p>
+                                  <div className="p-3 border border-black/20 rounded-md w-full sm:w-60 bg-gray-50">
+                                    <p className="text-black/40 text-xs mb-1">You replied to this message</p>
+                                    <p className="text-sm font-semibold text-black">{message.replyMessage}</p>
                                   </div>
                                )
           }
