@@ -100,8 +100,8 @@ const CodeVerification = () => {
     }
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+        <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-[linear-gradient(354deg,rgba(0,0,0,1)_0%,rgba(25,25,60,1)_30%,rgba(10,40,60,1)_100%)]">
+            <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md dark:bg-transparent dark:shadow-[0_4px_10px_rgba(0,200,255,0.3)]">
                 <div className="text-center">
                     <h1 className="text-4x font-extrabold tracking-tight lg:text-5xl mb-6">
                         Verify Your Account

@@ -117,7 +117,7 @@ const DashboardPage = () => {
     const handleSwitchChange = async() => {
         try{
             const result = await axios.post("/api/accept-message", {acceptMessages: !acceptingMessage});
-            setValue("acceptingMessage", result.data.updatedUser);
+            setValue("acceptingMessage", result.data.isAcceptingMessages);
 
             const toastId = toast(
                 "Success",
@@ -188,8 +188,8 @@ const DashboardPage = () => {
         }
 
         return (
-            <div className="min-h-screen flex flex-col">
-            <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl flex-grow">
+            <div className="min-h-screen flex flex-col dark:bg-[linear-gradient(354deg,rgba(0,0,0,1)_0%,rgba(25,25,60,1)_30%,rgba(10,40,60,1)_100%)]">
+            <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl flex-grow dark:bg-transparent">
                 <h1 className="text-4xl font-bold mb-4">
                     User Dashboard
                 </h1>
@@ -203,7 +203,7 @@ const DashboardPage = () => {
                             type="text"
                             value={profileUrl}
                             disabled
-                            className="input input-bordered w-full p-2 mr-2 border-1 border-black/60 rounded-lg"
+                            className="input input-bordered w-full p-2 mr-2 border-1 border-black/60 rounded-lg dark:border-white/40"
                         />
                         <Button onClick={copyToClipboard}>
                             Copy
@@ -267,9 +267,9 @@ const DashboardPage = () => {
                 </div>
                 
             </div>
-            <footer className="text-center p-4 md:p-6 border-t-1 border-black/20">
+            <footer className="text-center p-4 md:p-6 border-t-1 border-border">
                 <p className="font-semibold">True Feedback - Say What You Really Feel, Anonymously</p>
-                <p className="text-[0.8rem] text-black/30">© 2025 True Feedback. All rights reserved</p>
+                <p className="text-[0.8rem] text-sidebar-ring">© 2025 True Feedback. All rights reserved</p>
             </footer>
             </div>
         )

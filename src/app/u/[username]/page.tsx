@@ -22,6 +22,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
+import { ModeToggle } from "@/components/common/ModeToggle";
 
 type randomMessage = {
   id: number;
@@ -141,14 +142,17 @@ const MessagePage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-white">
-      <nav className="w-full p-4 md:p-6 shadow-md mb-4 flex justify-around items-center">
+    <div className="flex flex-col items-center min-h-screen bg-white dark:bg-[linear-gradient(354deg,rgba(0,0,0,1)_0%,rgba(25,25,60,1)_30%,rgba(10,40,60,1)_100%)]">
+      <nav className="w-full p-4 md:p-6 shadow-lg mb-4 flex justify-around items-center dark:shadow-[0_2px_10px_rgba(0,200,255,0.2)] dark:bg-background">
         <p className="font-semibold">Be a part of Anonymous Gossips</p>
-        <Button onClick={() => router.replace("/sign-up")}>
-          Sign up
-        </Button>
+        <div className="flex space-x-4">
+          <Button onClick={() => router.replace("/sign-up")}>
+            Sign up
+          </Button>
+          <ModeToggle/>
+        </div>
       </nav>
-      <div className="w-full max-w-lg p-8 bg-white">
+      <div className="w-full max-w-lg p-8">
         <h1 className="text-4x font-extrabold tracking-tight lg:text-5xl mb-3 text-center">
           Public Profile Link
         </h1>
@@ -217,12 +221,12 @@ const MessagePage = () => {
       <div className="w-7/12 space-y-4 mt-6">
         <p>Click on any Message below to select it</p>
 
-        <div className="py-4 px-5 rounded-md shadow-lg">
+        <div className="py-4 px-5 rounded-md shadow-lg dark:bg-transparent dark:shadow-[0_4px_10px_rgba(0,200,255,0.3)]">
           <h2 className="text-[1.4rem] font-bold">Messages</h2>
           {messageSuggestion.map((message) => (
             <div
               key={message.id}
-              className="my-4 border-1 border-black/10 text-center rounded-sm py-1 cursor-pointer"
+              className="my-4 border-1 border-border text-center rounded-sm py-1 cursor-pointer"
               onClick={() => {
                 copyMessage(message.text);
               }}
