@@ -19,7 +19,7 @@ const Navbar = () => {
                 </a>
                 {
                     session && (
-                        <p className="mr-4">Welcome, {user?.username}</p>
+                        <p className="hidden md:block mr-4">Welcome, {user?.username}</p>
                     )
                 }
                 <div className="flex space-x-4">
