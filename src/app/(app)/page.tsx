@@ -50,7 +50,7 @@ const Homepage = () => {
         </Carousel>
       </main>
 
-      <footer className="text-center p-4 md:p-6 border-t-1 border-black/20">
+      <footer className="text-center p-4 md:p-6 border-t-1 border-border">
         <p className="font-semibold">True Feedback - Say What You Really Feel, Anonymously</p>
         <p className="text-[0.8rem] text-sidebar-ring">© 2025 True Feedback. All rights reserved</p>
       </footer>

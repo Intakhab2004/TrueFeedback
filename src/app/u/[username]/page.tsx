@@ -191,7 +191,7 @@ const MessagePage = () => {
                   <FormLabel>Enter your email if you want reply of this message. It is optional</FormLabel>
                   <FormControl>
                     <Input
-                      className="w-80"
+                      className="w-full max-w-xs md:w-80"
                       placeholder="Enter your email"
                       {...field}
                     />

@@ -13,7 +13,8 @@ const Navbar = () => {
 
     return (
         <nav className="p-4 md:p-6 shadow-md bg-background">
-            <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div className="container mx-auto flex flex-col md:flex-row 
+                  items-center md:justify-between text-center md:text-left space-y-3 md:space-y-0">
                 <a href="#" className="text-xl font-bold mb-4 md:mb-0">
                     True Feedback
                 </a>
@@ -27,7 +28,7 @@ const Navbar = () => {
                         session ? (
                                     <>
                                         
-                                        <Button onClick={() => signOut({callbackUrl: "/"})} className="w-full md:w-auto">
+                                        <Button onClick={() => signOut({callbackUrl: "/"})} className="p-4 md:w-auto">
                                             Logout
                                         </Button>
                                     </>
