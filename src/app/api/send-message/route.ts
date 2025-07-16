@@ -1,3 +1,4 @@
+import { analyzeSentimentHuggingFace } from "@/helpers/huggingFace";
 import dbConnect from "@/lib/dbConnect";
 import userModel from "@/model/User";
 import { NextRequest, NextResponse } from "next/server";
@@ -9,6 +10,9 @@ export async function POST(request: NextRequest){
     try{
         const reqBody = await request.json();
         const {username, content, email} = reqBody;
+
+        // Making AI api call to analyze sentiment
+        const response = await analyzeSentimentHuggingFace(content);
 
         const user = await userModel.findOne({username});
         if(!user){
@@ -31,7 +35,9 @@ export async function POST(request: NextRequest){
         const newMessage = {
             content,
             createdAt: new Date(),
-            replyEmail: email || undefined
+            replyEmail: email || undefined,
+            label: response.data?.label,
+            score: response.data?.score
         }
 
         user.messages.push(newMessage);

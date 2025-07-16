@@ -188,7 +188,10 @@ const MessagePage = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Enter your email if you want reply of this message. It is optional</FormLabel>
+                  <FormLabel>
+                    Enter your email if you want reply of this message. It is
+                    optional
+                  </FormLabel>
                   <FormControl>
                     <Input
                       className="w-full max-w-xs md:w-80"
@@ -213,10 +216,8 @@ const MessagePage = () => {
           </form>
         </Form>
 
-        <Separator className="mt-8"/>
+        <Separator className="mt-8" />
       </div>
-
-      
 
       <div className="w-7/12 space-y-4 mt-6">
         <p>Click on any Message below to select it</p>
@@ -238,12 +239,12 @@ const MessagePage = () => {
 
         <Button onClick={handleSuggestMessage} className="mt-4 mb-10">
           {messageLoader ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
-                </>
-              ) : (
-                "Suggest Message"
-              )}
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
+            </>
+          ) : (
+            "Suggest Message"
+          )}
         </Button>
       </div>
     </div>

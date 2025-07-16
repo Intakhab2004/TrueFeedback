@@ -183,71 +183,88 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
         <CardDescription className="-mt-1">{date}</CardDescription>
       </CardHeader>
       <CardFooter>
-        <div>
-          {
-            !message.replied ? (
+        <div className="flex flex-col sm:flex-row justify-between items-start w-full gap-3 sm:gap-6">
+          <div className="flex-1 w-full">
+            {
+              !message.replied ? (
                                   <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            {showDialogTrigger && (
-              <DialogTrigger asChild>
-                <Button>Reply</Button>
-              </DialogTrigger>
-            )}
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>Reply to the tapped message</DialogTitle>
-                <DialogDescription>
-                  You can reply only once to this message
-                </DialogDescription>
-              </DialogHeader>
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-6"
-                >
-                  <FormField
-                    control={form.control}
-                    name="replyText"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <Textarea
-                            placeholder="Enter your message here"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+              {showDialogTrigger && (
+                <DialogTrigger asChild>
+                  <Button>Reply</Button>
+                </DialogTrigger>
+              )}
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Reply to the tapped message</DialogTitle>
+                    <DialogDescription>
+                      You can reply only once to this message
+                    </DialogDescription>
+                  </DialogHeader>
+                  <Form {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit)}
+                      className="space-y-6"
+                    >
+                      <FormField
+                        control={form.control}
+                        name="replyText"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Textarea
+                                placeholder="Enter your message here"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                  <DialogFooter>
-                    <DialogClose asChild>
-                      <Button variant="outline">Cancel</Button>
-                    </DialogClose>
-                    <Button type="submit" disabled={loader}>
-                      {loader ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
-                          Please wait
-                        </>
-                      ) : (
-                        "Send"
-                      )}
-                    </Button>
-                  </DialogFooter>
-                </form>
-              </Form>
-            </DialogContent>
-          </Dialog>
-                               ) 
-                               :
-                               (
-                                  <div className="p-3 border border-black/20 rounded-md w-full sm:w-60 bg-gray-50">
-                                    <p className="text-black/40 text-xs mb-1">You replied to this message</p>
-                                    <p className="text-sm font-semibold text-black">{message.replyMessage}</p>
-                                  </div>
-                               )
-          }
+                      <DialogFooter>
+                        <DialogClose asChild>
+                          <Button variant="outline">Cancel</Button>
+                        </DialogClose>
+                        <Button type="submit" disabled={loader}>
+                          {loader ? (
+                            <>
+                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
+                              Please wait
+                            </>
+                          ) : (
+                            "Send"
+                          )}
+                        </Button>
+                      </DialogFooter>
+                    </form>
+                  </Form>
+                </DialogContent>
+              </Dialog>
+                                ) 
+                                :
+                                (
+                                    <div className="p-3 border border-black/20 rounded-md w-full sm:max-w-xs bg-gray-50">
+                                      <p className="text-black/40 text-xs mb-1">You replied to this message</p>
+                                      <p className="text-sm font-semibold text-black">{message.replyMessage}</p>
+                                    </div>
+                                )
+            }
+          </div>
+
+          <div className="text-left sm:text-right w-full sm:w-auto">
+            <p className={`text-sm font-semibold ${message.label === "POSITIVE" ? "text-green-600" : 
+                          message.label === "NEGATIVE"? "text-red-600" : "text-gray-600"}`}
+            >
+              {message.label}
+            </p>
+            {
+              message.score && (
+                <p className="text-xs text-gray-500">
+                  {`${(message.score*100).toFixed(1)}%`}
+                </p>
+              )
+            }
+          </div>
         </div>
       </CardFooter>
     </Card>

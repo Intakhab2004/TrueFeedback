@@ -5,5 +5,9 @@ export interface apiResponse{
     status: number,
     message: string,
     isAcceptingMessages?: boolean,
-    messages?: Array<Message>
+    messages?: Array<Message>,
+    data?: {
+        label: string,
+        score: number
+    }
 }

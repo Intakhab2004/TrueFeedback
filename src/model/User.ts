@@ -6,7 +6,9 @@ export interface Message extends Document{
     replyEmail: string,
     replyMessage: string,
     replied: boolean,
-    createdAt: Date
+    createdAt: Date,
+    label: string,
+    score: number
 }
 
 const messageSchema: Schema<Message> = new Schema({
@@ -33,6 +35,14 @@ const messageSchema: Schema<Message> = new Schema({
         type: Date,
         required: true,
         default: Date.now(),
+    },
+
+    label: {
+        type: String
+    },
+
+    score: {
+        type: Number
     }
 })
 
