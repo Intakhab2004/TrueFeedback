@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TrueFeedback – Anonymous Messaging Tool
 
-## Getting Started
+A modern platform that allows users to receive anonymous feedback via unique URLs. Built with **Next.js**, **TypeScript**, and **NextAuth**, TrueFeedback provides a secure, responsive, and user-friendly experience.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Anonymous Messaging:** Users share unique URLs to receive anonymous messages.  
+- **Secure Authentication:** Powered by **NextAuth** for seamless login.  
+- **Schema Validation:** Ensures data integrity with **Zod**.  
+- **Responsive Dashboard:** Clean and mobile-friendly interface built with **Tailwind CSS**.  
+- **Email Notifications:** Get notified for new messages and replies using **Nodemailer**.  
+- **One-Time Reply:** Token-based validation prevents duplicate responses for replies.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Demo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Live link:** https://true-feedback-livid.vercel.app  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
 
-## Learn More
+- **Frontend:** Next.js, TypeScript, Tailwind CSS  
+- **Backend:** Next.js API routes  
+- **Authentication:** NextAuth  
+- **Validation:** Zod  
+- **Email Service:** Nodemailer  
+- **Database:** MongoDB
 
-To learn more about Next.js, take a look at the following resources:
+## Usage
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Sign up or log in using NextAuth.  
+2. Share your unique feedback URL with friends or users.  
+3. Receive anonymous messages in your dashboard.  
+4. Reply to messages with one-time token-based validation.  
+5. Get email notifications for new messages and replies.  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
